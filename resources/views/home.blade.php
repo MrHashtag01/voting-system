@@ -17,10 +17,10 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
-            <div class="mt-4 mb-4 d-flex align-items-center justify-content-between">
-                <h5 class="m-0">Polls</h5>
-                <button type="button" class="btn btn-primary">New Poll +</button>
-            </div>
+            <div class="mt-4 mb-4 d-flex justify-content-between">
+              <h5>Polls</h5>
+              <a href="{{ ('/create') }}" class="btn btn-primary">Create</a>
+          </div>
                 <div>   
                 <table class="table table-bordered">
                     <thead>
