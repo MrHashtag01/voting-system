@@ -9,7 +9,7 @@ class PollController extends Controller
     public function index()
     {
         $polls = Poll::all();
-        return view('index', compact('polls'));
+        return view('polls.index', compact('polls'));
     }
 
     public function create()
@@ -24,7 +24,7 @@ class PollController extends Controller
             'slug' => 'required|max:255',
         ]);
         
-        $poll = Poll::create($storeData);
+        $polls = Poll::create($storeData);
         
         return redirect('/home')->with('success', 'Poll has been created!');
     }
@@ -36,9 +36,9 @@ class PollController extends Controller
 
     public function edit($id)
     {
-        $poll = Poll::findOrFail($id);
+        $polls = Poll::findOrFail($id);
         
-        return view('edit', compact('poll'));
+        return view('polls.edit', compact('poll'));
     }
 
     public function update(Request $request, $id)
@@ -48,15 +48,15 @@ class PollController extends Controller
             'slug' => 'required|max:255',
         ]);
         
-        Poll::where('id', $id)->update($updateData);
+        Poll::whereID($id)->update($updateData);
         
         return redirect('/home')->with('success', 'Poll has been edited');
     }
 
     public function destroy($id)
     {
-        $poll = Poll::findOrFail($id);
-        $poll->delete();
+        $polls = Poll::findOrFail($id);
+        $polls->delete();
         
         return redirect('/home')->with('success', 'Poll has been deleted');
     }
