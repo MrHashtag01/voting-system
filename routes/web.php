@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PollController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,4 +18,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/home', PollController::class);
+Route::resource('polls', PollController::class);

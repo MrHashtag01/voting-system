@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Poll;
 use Illuminate\Http\Request;
+use App\Models\Poll;
 
 class PollController extends Controller
 {
     public function index()
     {
-        $student = Student::all();
-        return view('index', compact('poll'));
+        $polls = Poll::all();
+        return view('index', compact('polls'));
     }
 
     public function create()
     {
-        return view('create');
+        return view('polls.create');
     }
 
     public function store(Request $request)
@@ -23,18 +23,21 @@ class PollController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|max:255',
         ]);
+        
         $poll = Poll::create($storeData);
-        return redirect('/home')->with('completed', 'Poll has been created!');
+        
+        return redirect('/home')->with('success', 'Poll has been created!');
     }
 
     public function show($id)
     {
-        //
+        // Retrieve and show a specific poll
     }
 
     public function edit($id)
     {
         $poll = Poll::findOrFail($id);
+        
         return view('edit', compact('poll'));
     }
 
@@ -44,16 +47,17 @@ class PollController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|max:255',
         ]);
-        Poll::whereId($id)->update($updateData);
-        return redirect('/home')->with('completed', 'Poll has been edited');
+        
+        Poll::where('id', $id)->update($updateData);
+        
+        return redirect('/home')->with('success', 'Poll has been edited');
     }
 
     public function destroy($id)
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();
-        return redirect('/home')->with('completed', 'Poll has been deleted');
+        
+        return redirect('/home')->with('success', 'Poll has been deleted');
     }
-
 }
-
