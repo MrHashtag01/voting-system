@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($polls as $poll)
+                @foreach($polls as $poll) 
                     <tr>
                         <td>{{ $poll->id }}</td>
                         <td>{{ $poll->title }}</td>
@@ -24,11 +24,11 @@
                         <td>{{ $poll->updated_at }}</td>
                         <td>{{ $poll->created_at }}</td>
                         <td class="text-center">
-                            <a href="{{ route('polls.edit', $poll->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('polls.edit', $poll->id) }}" class="btn btn-primary btn-sm">E</a>
                             <form action="{{ route('polls.destroy', $poll->id) }}" method="post" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                <button class="btn btn-danger btn-sm " type="submit">D</button>
                             </form>
                         </td>
                     </tr>

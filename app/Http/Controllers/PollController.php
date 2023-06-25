@@ -8,8 +8,7 @@ class PollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::all();
-        return view('polls.index', compact('polls'));
+        return redirect()->route('home');
     }
 
     public function create()
@@ -38,7 +37,7 @@ class PollController extends Controller
     {
         $polls = Poll::findOrFail($id);
         
-        return view('polls.edit', compact('poll'));
+        return view('polls.edit', compact('polls'));
     }
 
     public function update(Request $request, $id)
@@ -48,7 +47,7 @@ class PollController extends Controller
             'slug' => 'required|max:255',
         ]);
         
-        Poll::whereID($id)->update($updateData);
+        Poll::where('id', $id)->update($updateData);
         
         return redirect('/home')->with('success', 'Poll has been edited');
     }
