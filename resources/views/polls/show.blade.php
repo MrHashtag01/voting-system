@@ -19,7 +19,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{ route('polls.store') }}">
+                    <form method="post" action="{{ route('polls.vote', $polls->id) }}">
                         @csrf
                         <div class="text-center">
                             Please Give Your Vote    
@@ -31,12 +31,12 @@
 
                         </div>
                         <div class="form-check">                
-                            <input class="form-check-input" type="radio" name="title" id="flexRadioDefault1" />
-                            <label class="form-check-label" for="title" for="flexRadioDefault1">Yes</label>
+                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault1" value="yes">
+                            <label class="form-check-label" for="flexRadioDefault1">Yes</label>
                         </div>
                         <div class="form-check">                
-                            <input class="form-check-input" type="radio" name="title" id="flexRadioDefault2" />
-                            <label class="form-check-label" for="title" for="flexRadioDefault2">No</label>
+                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault2" value="no">
+                            <label class="form-check-label" for="flexRadioDefault2">No</label>
                         </div>
                         <button type="submit" class="btn btn-block btn-primary mt-3">Vote</button>
                     </form>

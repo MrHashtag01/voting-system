@@ -51,7 +51,7 @@ class PollController extends Controller
     $vote->vote = $request->vote === 'yes' ? 1 : 0;
     $vote->save();
 
-    return redirect('/home')->with('success', 'Vote has been recorded!');
+    return redirect('/home')->with('success', 'Your vote has been recorded!');
 }
 
     public function edit($id)
