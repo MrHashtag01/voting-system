@@ -39,11 +39,11 @@ class PollController extends Controller
         
         if ($user) {
             $selectedVote = Vote::where('user_id', $user->id)
-                ->where('poll_id', $poll->id)
+                ->where('poll_id', $polls->id)
                 ->first();
         }       
         
-        return view('polls.show', compact('polls'));
+        return view('polls.show', compact('polls', 'selectedVote'));
     }
 
     public function vote(Request $request, $id)

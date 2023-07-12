@@ -31,13 +31,14 @@
 
                         </div>
                         <div class="form-check">                
-                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault1" value="yes">
+                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault1" value="yes" {{ $selectedVote && $selectedVote->vote === 1 ? 'checked' : '' }}>
                             <label class="form-check-label" for="flexRadioDefault1">Yes</label>
                         </div>
                         <div class="form-check">                
-                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault2" value="no">
+                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault2" value="no" {{ $selectedVote && $selectedVote->vote === 0 ? 'checked' : '' }}>
                             <label class="form-check-label" for="flexRadioDefault2">No</label>
                         </div>
+                        
                         <button type="submit" class="btn btn-block btn-primary mt-3">Vote</button>
                     </form>
                 </div>
