@@ -34,6 +34,8 @@ class PollController extends Controller
     public function show($id)
     {
         $polls = Poll::findOrFail($id);
+        $user = auth()->user();
+        $selectedVote = null;
         return view('polls.show', compact('polls'));
     }
 
@@ -44,14 +46,30 @@ class PollController extends Controller
     ]);
 
     $poll = Poll::findOrFail($id);
+    $user = auth()->user();
 
+    $existingVote = Vote::where('user_id', $user->id)
+    ->where('poll_id', $poll->id)
+    ->first();
+
+    if ($existingVote) {
+        // Update the existing vote
+        $existingVote->vote = $request->vote === 'yes' ? 1 : 0;
+        $existingVote->save();
+
+        return redirect('/home')->with('success', 'Your vote has been updated');
+    }
+
+    else {
     $vote = new Vote();
     $vote->user_id = auth()->id();
     $vote->poll_id = $poll->id;
     $vote->vote = $request->vote === 'yes' ? 1 : 0;
     $vote->save();
 
-    return redirect('/home')->with('success', 'Your vote has been recorded!');
+    return redirect('/home')->with('success', 'Your vote has been recorded');
+}
+
 }
 
     public function edit($id)
