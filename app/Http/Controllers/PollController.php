@@ -36,6 +36,13 @@ class PollController extends Controller
         $polls = Poll::findOrFail($id);
         $user = auth()->user();
         $selectedVote = null;
+        
+        if ($user) {
+            $selectedVote = Vote::where('user_id', $user->id)
+                ->where('poll_id', $poll->id)
+                ->first();
+        }       
+        
         return view('polls.show', compact('polls'));
     }
 
