@@ -24,7 +24,7 @@
                         <td>{{ $poll->updated_at }}</td>
                         <td>{{ $poll->created_at }}</td>
                         <td class="text-center">
-                            <a href="{{ route('polls.show', $poll->id) }}" class="btn btn-success btn-sm">View</a>
+                            <a href="{{ route('polls.show', $poll->slug) }}" class="btn btn-success btn-sm">View</a>
                             <a href="{{ route('polls.edit', $poll->id) }}" class="btn btn-primary btn-sm">Edit</a>
                             <form action="{{ route('polls.destroy', $poll->id) }}" method="post" style="display: inline-block">
                                 @csrf

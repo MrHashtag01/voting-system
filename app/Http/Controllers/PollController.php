@@ -31,9 +31,9 @@ class PollController extends Controller
         return redirect('/home')->with('success', 'Poll has been created!');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $polls = Poll::findOrFail($id);
+        $polls = Poll::where('slug', $slug)->firstOrFail();
         $user = auth()->user();
         $selectedVote = null;
         
