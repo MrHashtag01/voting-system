@@ -115,13 +115,12 @@ class PollController extends Controller
 
     private function updateVotesColumn()
     {
-        $allpolls = Poll::all(); // Retrieve all polls
+        $allpolls = Poll::all();
 
         foreach ($allpolls as $allpoll) {
-        // Count the number of votes for each poll using the 'votes' table
+        
             $votesCount = DB::table('votes')->where('poll_id', $allpoll->id)->count();
-    
-        // Update the 'votes' column in the 'polls' table
+
         $allpoll->votes = $votesCount;
         $allpoll->save();
     }
