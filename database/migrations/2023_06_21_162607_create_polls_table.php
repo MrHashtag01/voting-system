@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->integer('votes')->default(0);
             $table->timestamps();
         });
     }

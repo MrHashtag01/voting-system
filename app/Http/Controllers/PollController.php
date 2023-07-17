@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Vote;
+use Illuminate\Support\Facades\DB;
 
 class PollController extends Controller
 {
@@ -42,6 +43,7 @@ class PollController extends Controller
                 ->where('poll_id', $polls->id)
                 ->first();
         }       
+    
         
         return view('polls.show', compact('polls', 'selectedVote'));
     }
@@ -60,10 +62,12 @@ class PollController extends Controller
     ->first();
 
     if ($existingVote) {
-        // Update the existing vote
+        
         $existingVote->vote = $request->vote === 'yes' ? 1 : 0;
         $existingVote->save();
-
+        
+    
+    
         return redirect('/home')->with('success', 'Your vote has been updated');
     }
 
@@ -73,10 +77,11 @@ class PollController extends Controller
     $vote->poll_id = $poll->id;
     $vote->vote = $request->vote === 'yes' ? 1 : 0;
     $vote->save();
-
-    return redirect('/home')->with('success', 'Your vote has been recorded');
+        
 }
 
+    $this->updateVotesColumn();
+    return redirect('/home')->with('success', 'Your vote has been recorded');    
 }
 
     public function edit($id)
@@ -107,4 +112,24 @@ class PollController extends Controller
         
         return redirect('/home')->with('success', 'Poll has been deleted');
     }
+
+    private function updateVotesColumn()
+    {
+        $allpolls = Poll::all(); // Retrieve all polls
+
+        foreach ($allpolls as $allpoll) {
+        // Count the number of votes for each poll using the 'votes' table
+            $votesCount = DB::table('votes')->where('poll_id', $allpoll->id)->count();
+    
+        // Update the 'votes' column in the 'polls' table
+        $allpoll->votes = $votesCount;
+        $allpoll->save();
+    }
+
+        return redirect('/home')->with('success', 'Votes count has been updated successfully');
+    }
+
+
 }
+
+

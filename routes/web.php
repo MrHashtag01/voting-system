@@ -18,8 +18,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::resource('polls', PollController::class);
+
 Route::post('polls/{id}/vote', [PollController::class, 'vote'])->name('polls.vote');
 
 Route::get('polls/{slug}', [PollController::class, 'show'])->name('polls.show');
 
-Route::resource('polls', PollController::class);
+
+

@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Poll extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'slug'];
+    protected $fillable = ['title', 'slug','votes'];
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }

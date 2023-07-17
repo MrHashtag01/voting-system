@@ -10,6 +10,7 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Slug</th>
+                    <th>Votes</th>
                     <th>Updated At</th>
                     <th>Created At</th>
                     <th class="text-center">Action</th>
@@ -21,6 +22,7 @@
                         <td>{{ $poll->id }}</td>
                         <td>{{ $poll->title }}</td>
                         <td>{{ $poll->slug }}</td>
+                        <td>{{ $poll->votes }}</td>
                         <td>{{ $poll->updated_at }}</td>
                         <td>{{ $poll->created_at }}</td>
                         <td class="text-center">
