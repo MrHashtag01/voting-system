@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Poll;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +28,21 @@ class HomeController extends Controller
     public function index()
     {
         $polls = Poll::all();
-    
+        
+        //Role::create(['name'=>'voter']);
+        //Permission::create(['name'=> 'can vote']);
+
+        //Role::create(['name'=>'admin']);
+        //Permission::create(['name'=> 'does everything']);
+
+        //auth()->user()->givePermissionTo('does everything');
+        //auth()->user()->assignRole('admin');
+        
+        //$doesEverythingPermission = Permission::where('name', 'can vote')->first();
+        //$adminRole = Role::where('name', 'voter')->first();
+        //$adminRole->givePermissionTo($doesEverythingPermission);
+
+
         return view('home', compact('polls'));
     }
 

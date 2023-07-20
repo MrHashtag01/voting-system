@@ -1,6 +1,8 @@
     <div class="mt-4 mb-4 d-flex align-items-center justify-content-between">
         <h5 class="m-0">Polls</h5>
-        <a href="{{ route('polls.create') }}" class="btn btn-primary">New Poll +</a>
+        @role('admin')
+            <a href="{{ route('polls.create') }}" class="btn btn-primary">New Poll +</a>
+        @endrole
     </div>
 
     <div class="table-responsive">
@@ -27,12 +29,14 @@
                         <td>{{ $poll->created_at }}</td>
                         <td class="text-center">
                             <a href="{{ route('polls.show', $poll->slug) }}" class="btn btn-success btn-sm">View</a>
+                            @role('admin')
                             <a href="{{ route('polls.edit', $poll->id) }}" class="btn btn-primary btn-sm">Edit</a>
                             <form action="{{ route('polls.destroy', $poll->id) }}" method="post" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm " type="submit">Delete</button>
                             </form>
+                            @endrole
                         </td>
                     </tr>
                 @endforeach
