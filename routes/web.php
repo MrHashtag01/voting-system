@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PollController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,11 +19,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['middleware' => ['permission:does everything']], function () {
+    Route::get('polls/create', [PollController::class, 'create']);
+    Route::get('polls/{id}/edit', [PollController::class, 'edit']);
+
+    
+});
+
 Route::resource('polls', PollController::class);
 
 Route::post('polls/{id}/vote', [PollController::class, 'vote'])->name('polls.vote');
 
 Route::get('polls/{slug}', [PollController::class, 'show'])->name('polls.show');
-
-
 
