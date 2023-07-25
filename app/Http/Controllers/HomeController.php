@@ -41,8 +41,7 @@ class HomeController extends Controller
         //$doesEverythingPermission = Permission::where('name', 'can vote')->first();
         //$adminRole = Role::where('name', 'voter')->first();
         //$adminRole->givePermissionTo($doesEverythingPermission);
-
-
+        
         return view('home', compact('polls'));
     }
 

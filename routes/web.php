@@ -19,16 +19,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['permission:does everything']], function () {
-    Route::get('polls/create', [PollController::class, 'create']);
-    Route::get('polls/{id}/edit', [PollController::class, 'edit']);
-
-    
+// polls
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('polls/create', [PollController::class, 'create'])->name('polls.create');
+    Route::get('polls/{id}/edit', [PollController::class, 'edit'])->name('polls.edit');
 });
 
-Route::resource('polls', PollController::class);
+Route::resource('polls', PollController::class)->except('create', 'edit');
 
-Route::post('polls/{id}/vote', [PollController::class, 'vote'])->name('polls.vote');
-
-Route::get('polls/{slug}', [PollController::class, 'show'])->name('polls.show');
-
+Route::group(['middleware' => ['role:admin|voter']], function () {
+    Route::post('polls/{id}/vote', [PollController::class, 'vote'])->name('polls.vote');
+    Route::get('polls/{slug}', [PollController::class, 'show'])->name('polls.show');
+});
