@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('polls/export', [PollController::class, 'export'])->name('polls.export');
+
 // polls
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('polls/create', [PollController::class, 'create'])->name('polls.create');
@@ -31,3 +33,4 @@ Route::group(['middleware' => ['role:admin|voter']], function () {
     Route::post('polls/{id}/vote', [PollController::class, 'vote'])->name('polls.vote');
     Route::get('polls/{slug}', [PollController::class, 'show'])->name('polls.show');
 });
+

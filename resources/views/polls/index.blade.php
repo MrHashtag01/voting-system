@@ -1,9 +1,13 @@
     <div class="mt-4 mb-4 d-flex align-items-center justify-content-between">
         <h5 class="m-0">Polls</h5>
+        <div class="d-flex">
+        <a href="{{ route('polls.export') }}" class="btn btn-success me-2">Export</a>
         @role('admin')
             <a href="{{ route('polls.create') }}" class="btn btn-primary">New Poll +</a>
         @endrole
+        </div>
     </div>
+
 
     <div class="table-responsive">
         <table class="table table-bordered">

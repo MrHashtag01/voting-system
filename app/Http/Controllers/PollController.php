@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Vote;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response as FileResponse;
 
 class PollController extends Controller
 {
@@ -128,6 +131,27 @@ class PollController extends Controller
         return redirect('/home')->with('success', 'Votes count has been updated successfully');
     }
 
+    public function export()
+    {
+        $polls = Poll::all();
+
+        $csvFileName = 'polls_export.csv';
+
+        $csvFile = fopen(public_path($csvFileName), 'w');
+        fputcsv($csvFile, ['ID', 'Title', 'Slug', 'Created At']);
+
+        foreach ($polls as $poll) {
+            fputcsv($csvFile, [$poll->id, $poll->title, $poll->slug, $poll->created_at]);
+        }
+
+        fclose($csvFile);
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+        ];
+
+        return FileResponse::download(public_path($csvFileName), 'polls.csv', $headers)->deleteFileAfterSend();
+    }
 
 }
 
