@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response as FileResponse;
+use App\Mail\VoteConfirmationMail;
+use App\Mail\VoteUpdateMail;
+use Illuminate\Support\Facades\Mail;
 
 class PollController extends Controller
 {
@@ -70,7 +73,8 @@ class PollController extends Controller
         $existingVote->save();
         
     
-    
+        $userName = $user->name;
+        Mail::to($user->email)->send(new VoteUpdateMail($userName));
         return redirect('/home')->with('success', 'Your vote has been updated');
     }
 
@@ -82,8 +86,12 @@ class PollController extends Controller
     $vote->save();
         
 }
+    
 
     $this->updateVotesColumn();
+    $userName = $user->name;
+    Mail::to($user->email)->send(new VoteConfirmationMail($userName));
+
     return redirect('/home')->with('success', 'Your vote has been recorded');    
 }
 

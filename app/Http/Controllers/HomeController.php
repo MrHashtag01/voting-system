@@ -35,8 +35,8 @@ class HomeController extends Controller
         //Role::create(['name'=>'admin']);
         //Permission::create(['name'=> 'does everything']);
 
-        //auth()->user()->givePermissionTo('does everything');
-        //auth()->user()->assignRole('admin');
+        //auth()->user()->givePermissionTo('can vote');
+        //auth()->user()->assignRole('voter');
         
         //$doesEverythingPermission = Permission::where('name', 'can vote')->first();
         //$adminRole = Role::where('name', 'voter')->first();
