@@ -74,7 +74,7 @@ class PollController extends Controller
         
     
         $userName = $user->name;
-        Mail::to($user->email)->send(new VoteUpdateMail($userName));
+        Mail::to($user->email)->queue(new VoteUpdateMail($userName));
         return redirect('/home')->with('success', 'Your vote has been updated');
     }
 
@@ -90,7 +90,7 @@ class PollController extends Controller
 
     $this->updateVotesColumn();
     $userName = $user->name;
-    Mail::to($user->email)->send(new VoteConfirmationMail($userName));
+    Mail::to($user->email)->queue(new VoteConfirmationMail($userName));
 
     return redirect('/home')->with('success', 'Your vote has been recorded');    
 }
